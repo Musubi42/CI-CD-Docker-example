@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/Musubi42/CI-CD-Docker-example/issues"
   },
-  "homepage": "https://github.com/Musubi42/CI-CD-Docker-example#readme"
+  "homepage": "https://github.com/Musubi42/CI-CD-Docker-example#readme",
+  "dependencies": {
+    "ronin-mocks": "^0.1.6",
+    "ronin-server": "^0.1.3"
+  }
 }
