@@ -1,21 +1,17 @@
 # syntax=docker/dockerfile:1
+FROM node:14.15.4 as base
 
-# Use Node image as a base
-FROM node:12.18.1
-# Improve performance
-ENV NODE_ENV=production
+WORKDIR /code
 
-# Use this path as our base directory
-WORKDIR /app
+COPY package.json package.json
+COPY package-lock.json package-lock.json
 
-# Copy our package* to the container
-COPY ["package.json", "package-lock.json*", "./"]
-
-# Install dependencies
-RUN npm install --production
-
-# Copy the source code to the container, the node_modules must be avoided
+FROM base as test
+RUN npm ci
 COPY . .
+CMD [ "npm", "run", "test" ]
 
-# Start the server
+FROM base as prod
+RUN npm ci --production
+COPY . .
 CMD [ "node", "server.js" ]
